@@ -1,0 +1,30 @@
+<ui:composition template="/WEB-INF/templates/master-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <h2 class="mt-5">Book name:</h2>
+        <p>#{bookDetailedUseCase.book.name}</p>
+        <h2>About the book:</h2>
+        <p>#{bookDetailedUseCase.book.description}</p>
+        <h2>Book category:</h2>
+        <p>#{bookDetailedUseCase.book.category.category}</p>
+        <h2>Author:</h2>
+        <p><h:link value="#{bookDetailedUseCase.book.author.fullName}"
+                   outcome="authorDetailed?authorId=#{bookDetailedUseCase.book.author.id}"
+                   styleClass="link-dark"/></p>
+        <ul class="list-group my-3">
+            <li class="list-group-item active">This book is available in these libraries:</li>
+            <ui:repeat value="#{bookDetailedUseCase.book.libraries}" var="library">
+                <li class="list-group-item">
+                    <h:link value="#{library.name}" outcome="libraryDetailed?libraryId=#{library.id}"/>
+                </li>
+            </ui:repeat>
+        </ul>
+        <h:link value="Go back to books" outcome="books" styleClass="btn btn-secondary"/>
+    </ui:define>
+</ui:composition>
+
+
+
+

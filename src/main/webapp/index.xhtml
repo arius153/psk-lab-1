@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
->
-<h:head/>
-<h:body>
-    <h2>Teams:</h2>
-    <ol>
-        <ui:repeat value="#{teams.allTeams}" var="team">
-            <li><h:link value="#{team.name}" outcome="players?teamId=#{team.id}" /></li>
-        </ui:repeat>
-    </ol>
-    <h:form>
-        <h:inputText value="#{teams.teamToCreate.name}" required="true" />
-        <h:commandButton value="Add new team" actionListener="#{teams.createTeam}" action="index?faces-redirect=true"/>
-    </h:form>
-    <h:link outcome="myBatis/teams" value="MyBatis implementation"/>
-</h:body>
-</html>
+<ui:composition template="/WEB-INF/templates/master-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <p>Tai ir sito nebus?</p>
+        <h:link outcome="libraries" value="Libraries"/>
+    </ui:define>
+</ui:composition>

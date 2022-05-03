@@ -1,0 +1,45 @@
+<ui:composition template="/WEB-INF/templates/master-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        gaidys cia?
+        <h2 class="mt-5">User full name:</h2>
+        <p>#{userDetailedUseCase.user.name} #{userDetailedUseCase.user.surname}</p>
+        <ul class="list-group my-5">
+            <li class="list-group-item active">User books:</li>
+            <ui:repeat value="#{userDetailedUseCase.user.books}" var="book">
+                <li class="list-group-item"><h:link value="#{book.name}"
+                                                    outcome="bookDetailed?bookId=#{book.id}"/>
+                </li>
+            </ui:repeat>
+        </ul>
+        <ul class="list-group my-5">
+            <li class="list-group-item active">User is in these libraries:</li>
+            <ui:repeat value="#{userDetailedUseCase.user.libraries}" var="library">
+                <li class="list-group-item"><h:link value="#{library.name}"
+                                                    outcome="libraryDetailed?libraryId=#{library.id}"/>
+                </li>
+            </ui:repeat>
+        </ul>
+        <h:form>
+            <h:selectOneMenu value="#{userDetailedUseCase.bookToBorrow}"
+                             styleClass="form-select mb-3">
+                <f:selectItem itemLabel="Choose User" itemValue="#{null}"/>
+                <f:selectItems value="#{userDetailedUseCase.availableBooks}"
+                               var="book"
+                               itemValue="#{book}"
+                               itemLabel="#{book.name}"/>
+                <f:converter converterId="omnifaces.SelectItemsConverter"/>
+            </h:selectOneMenu>
+            <h:commandButton value="Add book" actionListener="#{userDetailedUseCase.addBook}"
+                             action="#{'userDetailed?faces-redirect=true&amp;libraryUserId='.concat(userDetailedUseCase.user.id)}"
+                             styleClass="btn btn-primary">
+                <f:param name="libraryUserId" value="#{userDetailedUseCase.user.id}"/>
+            </h:commandButton>
+        </h:form>
+
+        <h:link value="Go back to users" outcome="users" styleClass="btn btn-secondary"/>
+    </ui:define>
+</ui:composition>

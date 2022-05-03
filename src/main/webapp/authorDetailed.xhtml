@@ -1,0 +1,22 @@
+<ui:composition template="/WEB-INF/templates/master-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <h2 class="mt-5">Author name:</h2>
+        <p>#{authorDetailedUseCase.author.fullName}</p>
+        <h2>About the author:</h2>
+        <p>#{authorDetailedUseCase.author.description}</p>
+        <h2>Author books:</h2>
+        <ul class="list-group my-3">
+            <li class="list-group-item active">Author books:</li>
+            <ui:repeat value="#{authorDetailedUseCase.author.books}" var="book">
+                <li class="list-group-item">
+                    <h:link value="#{book.name}" outcome="authors"/>
+                </li>
+            </ui:repeat>
+        </ul>
+        <h:link value="Go back to authors" outcome="authors" styleClass="btn btn-secondary"/>
+    </ui:define>
+</ui:composition>

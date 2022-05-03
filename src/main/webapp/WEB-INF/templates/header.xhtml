@@ -1,0 +1,26 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <h:link class="nav-link" outcome="index" value="Home"/>
+                </li>
+                <li class="nav-item">
+                    <h:link class="nav-link" outcome="libraries" value="Libraries"/>
+                </li>
+                <li class="nav-item">
+                    <h:link class="nav-link" outcome="users" value="Library users"/>
+                </li>
+                <li class="nav-item">
+                    <h:link class="nav-link" outcome="authors" value="Authors"/>
+                </li>
+                <li class="nav-item">
+                    <h:link class="nav-link" outcome="books" value="Books"/>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</ui:composition>

@@ -1,0 +1,26 @@
+<ui:composition template="/WEB-INF/templates/master-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <ul class="list-group my-5">
+            <li class="list-group-item active">Authors:</li>
+            <ui:repeat value="#{authorUseCase.allAuthors}" var="author">
+                <li class="list-group-item">
+                    <h:link value="#{author.fullName}" outcome="authorDetailed?authorId=#{author.id}"/>
+                </li>
+            </ui:repeat>
+        </ul>
+        <hr/>
+        <h2>Add an author:</h2>
+        <h:form>
+            <h:inputText a:placeholder="Full name" value="#{authorUseCase.authorToCreate.fullName}" required="true"
+                         styleClass="form-control mb-3"/>
+            <h:inputText a:placeholder="Description" value="#{authorUseCase.authorToCreate.description}" required="true"
+                         styleClass="form-control mb-3"/>
+            <h:commandButton value="Add author" actionListener="#{authorUseCase.createAuthor}"
+                             action="authors?faces-redirect=true" styleClass="btn btn-primary"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
