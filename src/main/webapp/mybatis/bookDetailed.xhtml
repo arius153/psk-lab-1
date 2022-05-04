@@ -4,13 +4,11 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
    <ui:define name="content">
       <h2 class="mt-5">Book name:</h2>
-      <p>#{bookDetailedUseCase.book.name}</p>
+      <p>#{bookDetailedMyBatis.book.name}</p>
       <h2>About the book:</h2>
-      <p>#{bookDetailedUseCase.book.description}</p>
-      <h2>Book category:</h2>
-      <p>#{bookDetailedUseCase.book.category.category}</p>
+      <p>#{bookDetailedMyBatis.book.description}</p>
       <h2>Author:</h2>
-      <p><h:link value="#{bookDetailedUseCase.book.author.fullName}"
+      <p><h:link value="#{bookDetailedMyBatis.book.author.fullname}"
                  outcome="authorDetailed?authorId=#{bookDetailedUseCase.book.author.id}"
                  styleClass="link-dark"/></p>
       <h:link value="Go back to books" outcome="books" styleClass="btn btn-secondary"/>

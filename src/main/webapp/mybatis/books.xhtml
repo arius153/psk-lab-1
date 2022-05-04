@@ -1,53 +1,16 @@
 <ui:composition template="/WEB-INF/templates/master-template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
    <ui:define name="content">
       <ul class="list-group my-5">
          <li class="list-group-item active">Books:</li>
-         <ui:repeat value="#{booksUseCase.allBooks}" var="book">
-            <li class="list-group-item"><h:link value="#{book.name} | #{book.author.fullName}" outcome="bookDetailed?bookId=#{book.id}"/>
+         <ui:repeat value="#{bookMyBatis.allBooks}" var="book">
+            <li class="list-group-item"><h:link value="#{book.name} | #{book.author.fullname}" outcome="bookDetailed?bookId=#{book.id}"/>
             </li>
          </ui:repeat>
       </ul>
       <hr/>
-      <h2>Add a book:</h2>
-      <h:form>
-         <h:inputText a:placeholder="Name" value="#{booksUseCase.bookToAdd.name}" required="true"
-                      styleClass="form-control mb-3"/>
-         <h:inputText a:placeholder="Description" value="#{booksUseCase.bookToAdd.description}" required="true"
-                      styleClass="form-control mb-3"/>
-         <h:selectOneMenu value="#{booksUseCase.bookToAdd.author}"
-                          styleClass="form-select mb-3" >
-            <f:selectItem itemLabel="Choose author" itemValue="#{null}" />
-            <f:selectItems value="#{authorUseCase.allAuthors}"
-                           var="author"
-                           itemValue="#{author}"
-                           itemLabel="#{author.fullName}"/>
-            <f:converter converterId="omnifaces.SelectItemsConverter"/>
-         </h:selectOneMenu>
-         <h:selectOneMenu value="#{booksUseCase.bookToAdd.category}"
-                          styleClass="form-select mb-3">
-            <f:selectItem itemLabel="Choose category" itemValue="#{null}" />
-            <f:selectItems value="#{booksUseCase.allBookCategories}"
-                           var="category"
-                           itemValue="#{category}"
-                           itemLabel="#{category.category}"/>
-            <f:converter converterId="omnifaces.SelectItemsConverter"/>
-         </h:selectOneMenu>
-         <h:commandButton value="Add Book" actionListener="#{booksUseCase.addBook}"
-                          action="books?faces-redirect=true" styleClass="btn btn-primary"/>
-      </h:form>
-      <hr/>
-      <h2>Add book categorie:</h2>
-      <h:form>
-         <h:inputText a:placeholder="Book category name" value="#{booksUseCase.bookCategoryToAdd.category}" required="true"
-                      styleClass="form-control mb-3"/>
-         <h:commandButton value="Add book category" actionListener="#{booksUseCase.addBookCategory}"
-                          action="books?faces-redirect=true" styleClass="btn btn-primary"/>
-      </h:form>
       <h:link styleClass="btn btn-warning mt-5" value="JPA" outcome="/books"/>
 
    </ui:define>
