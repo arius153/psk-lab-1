@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tomee>
-    <!-- see http://tomee.apache.org/containers-and-resources.html -->
-    <!-- see http://tomee.apache.org/datasource-config.html -->
-
-    <!-- H2 Database -->
-    <Resource id="PlayersDataSource" type="DataSource">
+    <Resource id="LibrariesDataSource" type="DataSource">
         JdbcDriver = org.h2.Driver
         JdbcUrl = jdbc:h2:~/h2database/gaDb;AUTO_SERVER=TRUE;
         UserName = as
