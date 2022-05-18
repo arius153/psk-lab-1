@@ -42,6 +42,10 @@ public class Book {
     @JoinColumn(name = "AUTHOR_ID")
     private Author author;
 
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer version;
+
     @Override
     public String toString() {
         return String.valueOf(id);

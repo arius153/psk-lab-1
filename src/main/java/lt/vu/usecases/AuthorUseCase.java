@@ -3,7 +3,7 @@ package lt.vu.usecases;
 import lombok.Getter;
 import lombok.Setter;
 import lt.vu.entities.Author;
-import lt.vu.persistence.AuthorDAO;
+import lt.vu.persistence.interfaces.AuthorDAO;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;

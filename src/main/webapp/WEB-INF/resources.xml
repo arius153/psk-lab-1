@@ -2,7 +2,7 @@
 <tomee>
     <Resource id="LibrariesDataSource" type="DataSource">
         JdbcDriver = org.h2.Driver
-        JdbcUrl = jdbc:h2:~/h2database/gaDb;AUTO_SERVER=TRUE;
+        JdbcUrl = jdbc:h2:~/h2database/taDb;AUTO_SERVER=TRUE;
         UserName = as
         Password = as
         InitialSize = 1

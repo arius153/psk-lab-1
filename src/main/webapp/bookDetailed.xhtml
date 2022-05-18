@@ -1,26 +1,76 @@
 <ui:composition template="/WEB-INF/templates/master-template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:a="http://java.sun.com/jsf/composite"
+                xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="content">
-        <h2 class="mt-5">Book name:</h2>
-        <p>#{bookDetailedUseCase.book.name}</p>
-        <h2>About the book:</h2>
-        <p>#{bookDetailedUseCase.book.description}</p>
-        <h2>Book category:</h2>
-        <p>#{bookDetailedUseCase.book.category.category}</p>
-        <h2>Author:</h2>
-        <p><h:link value="#{bookDetailedUseCase.book.author.fullName}"
-                   outcome="authorDetailed?authorId=#{bookDetailedUseCase.book.author.id}"
-                   styleClass="link-dark"/></p>
-        <ul class="list-group my-3">
-            <li class="list-group-item active">This book is available in these libraries:</li>
-            <ui:repeat value="#{bookDetailedUseCase.book.libraries}" var="library">
-                <li class="list-group-item">
-                    <h:link value="#{library.name}" outcome="libraryDetailed?libraryId=#{library.id}"/>
-                </li>
-            </ui:repeat>
-        </ul>
+        <c:choose>
+            <c:when test="#{bookDetailedUseCase.editMode}">
+                <h:form>
+                    <h:inputText a:placeholder="Name" value="#{bookDetailedUseCase.book.name}" required="true"
+                                 styleClass="form-control mb-3 mt-5"/>
+                    <h:inputText a:placeholder="Description" value="#{bookDetailedUseCase.book.description}"
+                                 required="true"
+                                 styleClass="form-control mb-3"/>
+                    <h:selectOneMenu value="#{bookDetailedUseCase.book.author}"
+                                     styleClass="form-select mb-3">
+                        <f:selectItem itemLabel="Choose author" itemValue="#{null}"/>
+                        <f:selectItems value="#{authorUseCase.allAuthors}"
+                                       var="author"
+                                       itemValue="#{author}"
+                                       itemLabel="#{author.fullName}"/>
+                        <f:converter converterId="omnifaces.SelectItemsConverter"/>
+                    </h:selectOneMenu>
+                    <h:selectOneMenu value="#{bookDetailedUseCase.book.category}"
+                                     styleClass="form-select mb-3">
+                        <f:selectItem itemLabel="Choose category" itemValue="#{null}"/>
+                        <f:selectItems value="#{booksUseCase.allBookCategories}"
+                                       var="category"
+                                       itemValue="#{category}"
+                                       itemLabel="#{category.category}"/>
+                        <f:converter converterId="omnifaces.SelectItemsConverter"/>
+                    </h:selectOneMenu>
+                    <div class="d-flex align-items-center mb-3">
+                        <h:commandButton value="Edit book" action="#{bookDetailedUseCase.editBook()}"
+                                         styleClass="btn btn-primary">
+                            <f:param name="bookId" value="#{bookDetailedUseCase.book.id}"/>
+                            <f:param name="editMode" value="#{true}"/>
+                        </h:commandButton>
+                        <h:outputText rendered="#{param['error'] == 'optimistic-lock-exception'}"
+                                      value="Book was modified by other user! Try again!"/>
+                    </div>
+                </h:form>
+                <h:link value="Back to view mode" styleClass="btn btn-primary me-3" outcome="bookDetailed">
+                    <f:param name="bookId" value="#{bookDetailedUseCase.book.id}"/>
+                </h:link>
+            </c:when>
+            <c:otherwise>
+                <h2 class="mt-5">Book name:</h2>
+                <p>#{bookDetailedUseCase.book.name}</p>
+                <h2>About the book:</h2>
+                <p>#{bookDetailedUseCase.book.description}</p>
+                <h2>Book category:</h2>
+                <p>#{bookDetailedUseCase.book.category.category}</p>
+                <h2>Author:</h2>
+                <p><h:link value="#{bookDetailedUseCase.book.author.fullName}"
+                           outcome="authorDetailed?authorId=#{bookDetailedUseCase.book.author.id}"
+                           styleClass="link-dark"/></p>
+                <ul class="list-group my-3">
+                    <li class="list-group-item active">This book is available in these libraries:</li>
+                    <ui:repeat value="#{bookDetailedUseCase.book.libraries}" var="library">
+                        <li class="list-group-item">
+                            <h:link value="#{library.name}" outcome="libraryDetailed?libraryId=#{library.id}"/>
+                        </li>
+                    </ui:repeat>
+                </ul>
+                <h:link value="Edit this book" styleClass="btn btn-primary me-3" outcome="bookDetailed">
+                    <f:param name="bookId" value="#{bookDetailedUseCase.book.id}"/>
+                    <f:param name="editMode" value="#{true}"/>
+                </h:link>
+            </c:otherwise>
+        </c:choose>
+
         <h:link value="Go back to books" outcome="books" styleClass="btn btn-secondary"/>
     </ui:define>
 </ui:composition>

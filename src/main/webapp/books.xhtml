@@ -8,7 +8,8 @@
         <ul class="list-group my-5">
             <li class="list-group-item active">Books:</li>
             <ui:repeat value="#{booksUseCase.allBooks}" var="book">
-                <li class="list-group-item"><h:link value="#{book.name} | #{book.author.fullName}" outcome="bookDetailed?bookId=#{book.id}"/>
+                <li class="list-group-item"><h:link value="#{book.name} | #{book.author.fullName}"
+                                                    outcome="bookDetailed?bookId=#{book.id}"/>
                 </li>
             </ui:repeat>
         </ul>
@@ -20,8 +21,8 @@
             <h:inputText a:placeholder="Description" value="#{booksUseCase.bookToAdd.description}" required="true"
                          styleClass="form-control mb-3"/>
             <h:selectOneMenu value="#{booksUseCase.bookToAdd.author}"
-                             styleClass="form-select mb-3" >
-                <f:selectItem itemLabel="Choose author" itemValue="#{null}" />
+                             styleClass="form-select mb-3">
+                <f:selectItem itemLabel="Choose author" itemValue="#{null}"/>
                 <f:selectItems value="#{authorUseCase.allAuthors}"
                                var="author"
                                itemValue="#{author}"
@@ -30,7 +31,7 @@
             </h:selectOneMenu>
             <h:selectOneMenu value="#{booksUseCase.bookToAdd.category}"
                              styleClass="form-select mb-3">
-                <f:selectItem itemLabel="Choose category" itemValue="#{null}" />
+                <f:selectItem itemLabel="Choose category" itemValue="#{null}"/>
                 <f:selectItems value="#{booksUseCase.allBookCategories}"
                                var="category"
                                itemValue="#{category}"
@@ -43,13 +44,22 @@
         <hr/>
         <h2>Add book categorie:</h2>
         <h:form>
-            <h:inputText a:placeholder="Book category name" value="#{booksUseCase.bookCategoryToAdd.category}" required="true"
+            <h:inputText a:placeholder="Book category name" value="#{booksUseCase.bookCategoryToAdd.category}"
+                         required="true"
                          styleClass="form-control mb-3"/>
             <h:commandButton value="Add book category" actionListener="#{booksUseCase.addBookCategory}"
                              action="books?faces-redirect=true" styleClass="btn btn-primary"/>
         </h:form>
 
         <h:link styleClass="btn btn-warning mt-5" value="MyBatis" outcome="/mybatis/books"/>
-
+        <hr/>
+        <h2>Get random book:</h2>
+        <h:form>
+            <h:outputText value="#{pickRandomBook.bookLink}" escape="false"/>
+            <br/>
+            <h:commandButton styleClass="btn btn-danger mt-3" value="Pick random book" disabled="#{pickRandomBook.running}"
+                             action="#{pickRandomBook.pickRandomBook()}">
+            </h:commandButton>
+        </h:form>
     </ui:define>
 </ui:composition>

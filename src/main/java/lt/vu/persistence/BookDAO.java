@@ -5,6 +5,7 @@ import lt.vu.entities.Book;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 @ApplicationScoped
@@ -23,6 +24,14 @@ public class BookDAO {
 
     public void persist(Book book) {
         this.em.persist(book);
+    }
+
+    public Book update(Book book) {
+        return em.merge(book);
+    }
+
+    public void flush() {
+        em.flush();
     }
 
     public Book findOne(Long id) {

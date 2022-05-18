@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lt.vu.entities.Book;
 import lt.vu.entities.BookCategory;
+import lt.vu.interceptors.LoggedInvocation;
 import lt.vu.persistence.AuthorDAO;
 import lt.vu.persistence.BookCategoryDAO;
 import lt.vu.persistence.BookDAO;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Model
+@LoggedInvocation
 public class BooksUseCase {
 
     @Inject
